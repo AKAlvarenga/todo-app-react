@@ -6,20 +6,23 @@ import AddTask from "./AddTask";
 import ListTask from "./ListTask";
 
 function App() {
-  const api = 'http://localhost:8081/api/task';
+  const apiUrl = 'http://localhost:8081/api/task';
   const [tasks, setTasks] = useState([]);
+  const api = {
+    all: () => axios.get(apiUrl),
+    save: (task) => axios.post(apiUrl, {description: task}).then(() => api.all().then(res => setTasks(res.data)))
+  };
   useEffect(() => {
-    fetchAll().then(res => setTasks(res.data));
+    api.all().then(res => setTasks(res.data));
   }, []);
-  const fetchAll = () => axios.get(api);
-  const addNew = (task) => axios.post(api, {description: task}).then(() => fetchAll());
+
   return (
     <div className="App">
       <header className="App-header">
         Todo App
       </header>
       <div className="Container">
-        <AddTask onClickHandler={addNew}/>
+        <AddTask onClickHandler={api.save}/>
         <ListTask tasks={tasks}/>
       </div>
     </div>
