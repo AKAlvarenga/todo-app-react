@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +35,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+.Container {
+  text-align: left;
+  max-width: 80%;
+  margin: 0 auto;
+  border-width: 0;
+}
+
+form > input, label, button {
+  display: block;
+}
+fieldset {
+  border-style: none;
 }
